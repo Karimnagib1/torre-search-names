@@ -1,6 +1,7 @@
 import "./App.css";
 
-import Login from "./Features/Login.js";
+import Login from "../features/Login/Login.js";
+import Signup from "../features/Signup/Signup.js";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
@@ -10,6 +11,9 @@ function App() {
           <main>
             {/* <Products /> */}
             <Routes>
+              <Route path="/" exact element={<Login />} />
+              <Route path="/signup" exact element={<Signup />} />
+
               <Route path="/login" exact element={<Login />} />
               <Route
                 path="*"
