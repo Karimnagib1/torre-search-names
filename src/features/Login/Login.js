@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,21 +11,35 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("email", email);
-    data.append("password", password);
-    const jsonResponse = await fetch("http://localhost:5000/api/users/login", {
-      method: "POST",
-      body: data,
-    });
-    const response = await jsonResponse.json();
-    if (response.success) {
-      axios.defaults.headers.common = { Authorization: response.token };
-      const payload = JSON.parse(window.atob(response.token.split(".")[1]));
+
+    const data = {
+      email: email,
+      password: password,
+    };
+    const response = await axios.post("http://localhost:5000/login", data);
+
+    if (response.status === 200) {
+      // Calculate the expiration date
+      const expirationDate = new Date();
+      expirationDate.setMonth(expirationDate.getMonth() + 1);
+
+      document.cookie = `Authorization=${
+        response.data.token.split(" ")[1]
+      }; expires=${expirationDate.toUTCString()}; path=/`;
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${
+        response.data.token.split(" ")[1]
+      }`;
+      console.log(response.data.token.split(" ")[1]);
+
+      const payload = JSON.parse(
+        window.atob(response.data.token.split(".")[1])
+      );
+
       dispatch(authUser(payload));
+
       navigate("/");
     }
   };

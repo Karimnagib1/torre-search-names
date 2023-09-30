@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 import axios from "axios";
@@ -22,11 +22,7 @@ const Signup = () => {
       password: password,
       password2: password2,
     };
-    const response = await axios.post(
-      "http://localhost:5000/api/users/register",
-      data
-    );
-    console.log(response.data);
+    const response = await axios.post("http://localhost:5000/signup", data);
     if (response.status === 200) {
       navigate("/login");
     }
