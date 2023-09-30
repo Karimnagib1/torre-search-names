@@ -1,0 +1,41 @@
+const FavoriteSearch = require("../models/FavoriteSearch");
+
+exports.postAddFavoriteSearch = (req, res, next) => {
+  const favoriteSearch = new FavoriteSearch({
+    userId: req.user._id,
+    name: req.body.name,
+    username: req.body.username,
+    imageUrl: req.body.imageUrl,
+    professionalHeadline: req.body.professionalHeadline,
+  });
+  favoriteSearch
+    .save()
+    .then((result) => {
+      res.status(201).json({
+        message: "Favorite search added successfully!",
+        favoriteSearch: result,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.getFavoriteSearches = (req, res, next) => {
+  FavoriteSearch.find({ userId: req.user._id })
+    .then((favoriteSearches) => {
+      res.status(200).json({
+        message: "Favorite searches fetched successfully!",
+        favoriteSearches: favoriteSearches,
+      });
+    })
+    .catch((err) => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};

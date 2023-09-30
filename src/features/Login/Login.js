@@ -18,7 +18,7 @@ const Login = () => {
       email: email,
       password: password,
     };
-    const response = await axios.post("http://localhost:5000/login", data);
+    const response = await axios.post("http://localhost:5000/user/login", data);
 
     if (response.status === 200) {
       // Calculate the expiration date

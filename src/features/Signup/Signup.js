@@ -22,7 +22,10 @@ const Signup = () => {
       password: password,
       password2: password2,
     };
-    const response = await axios.post("http://localhost:5000/signup", data);
+    const response = await axios.post(
+      "http://localhost:5000/user/signup",
+      data
+    );
     if (response.status === 200) {
       navigate("/login");
     }
