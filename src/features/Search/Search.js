@@ -1,6 +1,7 @@
 import { React } from "react";
 import "./Search.css";
 import NavBar from "../../components/NavBar/NavBar";
+import ResultsList from "../../components/ResultsList/ResultsList";
 const Search = () => {
   // const [searchTerm, setSearchTerm] = useState("");
 
@@ -9,6 +10,7 @@ const Search = () => {
       <NavBar />
       <div className="search-container">
         <div class="input-wrapper">
+        <ResultsList />
           <button class="icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
