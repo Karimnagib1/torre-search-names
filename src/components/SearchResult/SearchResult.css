@@ -1,14 +1,18 @@
 .search-result-container {
   padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
 }
 
 .search-result-container:hover {
   background-color: #999999;
   cursor: pointer;
+}
+
+.search-result-content {
+  margin: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .search-result-container img {
@@ -27,9 +31,12 @@
 }
 
 .star {
-    
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 .star.selected {
-    color: #FFD700;
+  color: #ffd700;
+}
+
+.content-container {
+  width: 70%;
 }

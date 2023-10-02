@@ -7,10 +7,11 @@ import { getSearchResults } from "./SearchSlice";
 import { useDispatch } from "react-redux";
 
 const Search = () => {
-  // const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
 
-  dispatch(getSearchResults("renan"));
+  const handleTermChange = (e) => {
+    dispatch(getSearchResults(e.target.value));
+  };
 
   return (
     <>
@@ -47,6 +48,7 @@ const Search = () => {
             className="input"
             name="text"
             type="text"
+            onChange={handleTermChange}
           />
         </div>
       </div>

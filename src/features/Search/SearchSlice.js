@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, isRejected } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getSearchResults = createAsyncThunk(
@@ -44,6 +44,13 @@ const search = createSlice({
       });
   },
 });
+
+export const selectSearchResults = (state) => {
+  return state.search.searchResults;
+};
+export const selectSearchStatus = (state) => {
+  return state.search.status;
+};
 
 export const { setSearchResults } = search.actions;
 export default search.reducer;
