@@ -2,7 +2,6 @@
 
 .nav a {
   text-decoration: none;
-  color: aqua;
   font-weight: bold;
   font: 16px Arial, sans-serif;
   margin-right: 20px;
@@ -12,8 +11,8 @@
   justify-content: space-between;
   align-items: center;
   background-color: transparent; /* Bright blue background color */
-  padding: 6px 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .nav {
@@ -74,7 +73,7 @@ button:hover {
   background-color: #c0392b; /* Darker red on hover */
 }
 
-svg {
+.nav-item svg {
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
@@ -100,11 +99,11 @@ svg {
     margin-bottom: 15px;
   }
 
-  button {
+  .nav-container button {
     margin-top: 15px;
   }
 
-  a button {
+  .nav-container a button {
     width: 100%;
     text-decoration: none;
   }

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import Auth from "../features/Auth/Auth.js";
 import NavBar from "../components/NavBar/NavBar.js";
+import Search from "../features/Search/Search";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Router>
         <div className="app">
           <Routes>
-            <Route path="/" exact element={<NavBar />} />
+            <Route path="/" exact element={<Search />} />
 
             <Route path="/auth" exact element={<Auth />} />
             <Route
