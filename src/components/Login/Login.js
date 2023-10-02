@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { authUser } from "./UserSlice";
+import { authUser } from "../../features/Auth/UserSlice.js";
 import "./Login.css";
 
 const Login = () => {
@@ -44,29 +44,27 @@ const Login = () => {
     }
   };
   return (
-    <div className="content-wrap">
-      <div className="login-c">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            placeholder="Enter your email"
-            id="email"
-            name="email"
-            type="text"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label htmlFor="password">Password</label>
-
-          <input
-            placeholder="Enter your password"
-            id="password"
-            name="password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button type="submit">Login</button>
-        </form>
-      </div>
+    <div className="login">
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="chk" aria-hidden="true">
+          Login
+        </label>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          name="pswd"
+          placeholder="Password"
+          required
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button>Login</button>
+      </form>
     </div>
   );
 };
