@@ -5,11 +5,16 @@ import { faMagnifyingGlass, faStar } from "@fortawesome/free-solid-svg-icons";
 
 import { Link } from "react-router-dom";
 
-import { useSelector } from "react-redux";
-import { selectIsAuthenticated } from "../../features/Auth/UserSlice.js";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectIsAuthenticated,
+  logout,
+} from "../../features/Auth/UserSlice.js";
+import axios from "axios";
 import "./NavBar.css";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
   let currentTab = "search";
@@ -27,6 +32,17 @@ const NavBar = () => {
         links[i].classList.remove("active");
       }
     }
+  };
+
+  const handleLogout = () => {
+    // Clear the cookie
+    document.cookie =
+      "Authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    // Remove Authorization header
+    delete axios.defaults.headers.common["Authorization"];
+
+    dispatch(logout());
   };
 
   return (
@@ -50,7 +66,10 @@ const NavBar = () => {
       </ul>
 
       {isAuthenticated ? (
-        <button id="logout"> logout</button>
+        <button id="logout" onClick={handleLogout}>
+          {" "}
+          logout
+        </button>
       ) : (
         <Link to="/auth">
           <button id="signup"> signup</button>
