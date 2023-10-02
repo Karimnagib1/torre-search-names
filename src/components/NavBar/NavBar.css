@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+.nav a {
+  text-decoration: none;
+  color: aqua;
+  font-weight: bold;
+  font: 16px Arial, sans-serif;
+  margin-right: 20px;
+}
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent; /* Bright blue background color */
+  padding: 6px 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.nav {
+  list-style: none;
+  display: flex;
+}
+
+.nav-item {
+  margin-right: 20px;
+  position: relative;
+  color: white;
+  font: 16px "Lato", sans-serif;
+}
+
+.nav-item::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 3px;
+  bottom: -7px;
+  left: 0;
+  background-color: #fff;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-item:hover::before,
+.nav-item.active::before {
+  visibility: visible;
+  width: 100%;
+}
+
+.nav-link {
+  color: #ecf0f1; /* Light gray text color */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: #ffffff; /* White color for active or hover state */
+}
+
+.nav-container button {
+  background-color: #e74c3c; /* Bright red button color */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #c0392b; /* Darker red on hover */
+}
+
+svg {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav {
+    margin: 0;
+  }
+
+  .nav {
+    margin-top: 15px;
+  }
+
+  .nav-item {
+    margin: 0;
+    margin-bottom: 15px;
+  }
+
+  button {
+    margin-top: 15px;
+  }
+
+  a button {
+    width: 100%;
+    text-decoration: none;
+  }
+}

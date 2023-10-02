@@ -1,4 +1,13 @@
+.auth-container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Jost", sans-serif;
 
+  min-height: 100vh;
+}
 .main {
   width: 350px;
   height: 550px;
@@ -12,7 +21,6 @@
 #chk {
   display: none;
 }
-
 
 label {
   color: #fff;
@@ -36,7 +44,7 @@ input {
   outline: none;
   border-radius: 5px;
 }
-button {
+.main button {
   width: 60%;
   height: 40px;
   margin: 10px auto;
