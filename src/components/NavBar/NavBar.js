@@ -49,7 +49,7 @@ const NavBar = () => {
     <div className="nav-container">
       <ul className="nav" id="main-nav">
         <Link to="/">
-          <li className="nav-item" onClick={handleLinkClick} id="search">
+          <li className="nav-item active" onClick={handleLinkClick} id="search">
             <FontAwesomeIcon
               className="nav-link  mt-2 search"
               icon={faMagnifyingGlass}

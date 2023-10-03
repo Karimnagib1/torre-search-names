@@ -32,7 +32,11 @@ const search = createSlice({
     builder
       .addCase(getSearchResults.fulfilled, (state, { payload }) => {
         state.searchResults = payload;
-        state.status = "fulfilled";
+        if (payload.length > 0) {
+          state.status = "fulfilled";
+        } else {
+          state.status = "rejected";
+        }
       })
       .addCase(getSearchResults.pending, (state, { payload }) => {
         state.status = "pending";
