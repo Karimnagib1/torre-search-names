@@ -15,7 +15,7 @@ const ResultsList = () => {
       {status === "fulfilled" && (
         <div className="results-list">
           {searchResults.map((result) => {
-            return <SearchResult result={result} />;
+            return <SearchResult key={result.username} result={result} />;
           })}
         </div>
       )}
