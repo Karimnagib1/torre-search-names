@@ -1,17 +1,32 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import Auth from "../features/Auth/Auth.js";
-import NavBar from "../components/NavBar/NavBar.js";
 import Search from "../features/Search/Search";
+import FavoritesList from "../features/Favorites/Favorites";
+import { extractTokenFromCookie } from "../utils/extractToken";
+import { useDispatch } from "react-redux";
+import { extractPayloadFromJWT } from "../utils/jwtPayloadParser";
+import { authUser } from "../features/Auth/UserSlice";
+import axios from "axios";
 
 function App() {
+  const dispatch = useDispatch();
+
+  // Check if the user is authenticated
+  const token = extractTokenFromCookie();
+  if (token) {
+    const payload = extractPayloadFromJWT(token);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    dispatch(authUser(payload));
+  }
+
   return (
     <>
       <Router>
         <div className="app">
           <Routes>
             <Route path="/" exact element={<Search />} />
+            <Route path="/favorites" exact element={<FavoritesList />} />
 
             <Route path="/auth" exact element={<Auth />} />
             <Route
