@@ -31,7 +31,6 @@ const SearchResult = ({ result }) => {
           body: JSON.stringify(result),
         }
       );
-      const response = await jsonResponse.json();
       if (jsonResponse.status === 201) {
         dispatch(
           setAlert({
@@ -43,8 +42,8 @@ const SearchResult = ({ result }) => {
       } else {
         dispatch(
           setAlert({
-            message: response.message,
-            severity: "error",
+            message: "Already in favorites",
+            severity: "success",
             isVisible: true,
           })
         );

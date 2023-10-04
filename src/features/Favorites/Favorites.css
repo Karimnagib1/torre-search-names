@@ -48,7 +48,7 @@
   gap: 5px;
   justify-content: space-around;
   align-items: center;
-  margin: 0 20px;
+  padding: 0 20px;
 }
 
 .favorites-container img {
