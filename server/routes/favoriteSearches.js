@@ -7,7 +7,7 @@ const {
   getFavoriteSearches,
 } = require("../controllers/favoriteSearches.js");
 
-// @route POST api/favoriteSearches
+// @route POST /favorites
 // @desc Add favorite search
 // @access Private
 router.post(
@@ -16,7 +16,7 @@ router.post(
   postAddFavoriteSearch
 );
 
-// @route GET api/favoriteSearches
+// @route GET favorites
 // @desc Get favorite searches
 // @access Private
 router.get(
