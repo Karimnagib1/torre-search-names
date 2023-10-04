@@ -32,7 +32,6 @@ const Login = () => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${
         response.data.token.split(" ")[1]
       }`;
-      console.log(response.data.token.split(" ")[1]);
 
       const payload = JSON.parse(
         window.atob(response.data.token.split(".")[1])

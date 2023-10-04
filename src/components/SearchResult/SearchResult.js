@@ -4,23 +4,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 import "./SearchResult.css";
-import { selectIsAuthenticated } from "../../features/Auth/UserSlice";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { extractTokenFromCookie } from "../../utils/extractToken";
 
 const SearchResult = ({ result }) => {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
   const navigate = useNavigate();
   const handleResultClick = () => {
     window.open(`https://torre.ai/${result.username}`, "_blank");
   };
-  const handleStarClick = (e) => {
+  const handleStarClick = async (e) => {
     e.stopPropagation();
-    if (isAuthenticated) {
-      axios.post("http://localhost:5000/favorites/", result).then((res) => {
-        console.log(res);
+    const token = extractTokenFromCookie();
+
+    if (token) {
+      // change the axios to use fetch instead
+      const jsonResponse = await fetch("http://localhost:5000/favorites/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(result),
       });
+
+      const response = await jsonResponse.json();
+      if (response.status === 201) {
+        console.log("Favorite added successfully");
+      } else {
+        console.log(response.message);
+      }
     } else {
       navigate("/auth");
     }

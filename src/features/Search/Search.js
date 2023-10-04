@@ -15,7 +15,7 @@ const Search = () => {
 
   return (
     <>
-      <NavBar />
+      <NavBar path="search" />
       <div className="search-container">
         <div className="input-wrapper">
           <ResultsList />

@@ -7,7 +7,6 @@ exports.postAddFavoriteSearch = (req, res, next) => {
       if (favoriteSearch) {
         const error = new Error("Favorite search already exists!");
         error.statusCode = 400;
-        console.log("here");
         throw error;
       }
       return;
