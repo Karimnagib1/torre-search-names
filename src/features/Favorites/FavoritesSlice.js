@@ -1,6 +1,5 @@
-const { createAsyncThunk, createSlice } = require("@reduxjs/toolkit");
-
-const axios = require("axios");
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { extractTokenFromCookie } from "../../utils/extractToken";
 
 /**
  * This thunk fetches the favorites from the backend
@@ -8,13 +7,19 @@ const axios = require("axios");
 export const getFavorites = createAsyncThunk(
   "favorites/getFavorites",
   async () => {
-    if (!document.cookie.includes("Authorization")) {
-      return null;
+    const token = extractTokenFromCookie();
+    if (token) {
+      const jsonResponse = await fetch("http://localhost:5000/favorites/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const response = await jsonResponse.json();
+      return response.favoriteSearches;
     }
-    const favoritesResponse = await axios.get(
-      "http://localhost:3001/favorites"
-    );
-    return favoritesResponse.data;
+    return [];
   }
 );
 
