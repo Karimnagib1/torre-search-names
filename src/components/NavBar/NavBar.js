@@ -3,7 +3,7 @@ import { React } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faStar } from "@fortawesome/free-solid-svg-icons";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 import "./NavBar.css";
 
-const NavBar = () => {
+const NavBar = ({ path }) => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
@@ -34,6 +34,7 @@ const NavBar = () => {
     }
   };
 
+  const navigate = useNavigate();
   const handleLogout = () => {
     // Clear the cookie
     document.cookie =
@@ -41,7 +42,7 @@ const NavBar = () => {
 
     // Remove Authorization header
     delete axios.defaults.headers.common["Authorization"];
-
+    navigate("/");
     dispatch(logout());
   };
 
@@ -49,7 +50,11 @@ const NavBar = () => {
     <div className="nav-container">
       <ul className="nav" id="main-nav">
         <Link to="/">
-          <li className="nav-item active" onClick={handleLinkClick} id="search">
+          <li
+            className={path === "search" ? "nav-item active" : "nav-item"}
+            onClick={handleLinkClick}
+            id="search"
+          >
             <FontAwesomeIcon
               className="nav-link  mt-2 search"
               icon={faMagnifyingGlass}
@@ -57,8 +62,12 @@ const NavBar = () => {
             Search
           </li>
         </Link>
-        <Link to="/">
-          <li className="nav-item" onClick={handleLinkClick} id="favorites">
+        <Link to="/favorites">
+          <li
+            className={path === "favorites" ? "nav-item active" : "nav-item"}
+            onClick={handleLinkClick}
+            id="favorites"
+          >
             <FontAwesomeIcon className="nav-link mt-2 " icon={faStar} />
             Favorites
           </li>
