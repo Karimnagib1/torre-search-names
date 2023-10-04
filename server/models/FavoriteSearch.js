@@ -16,7 +16,6 @@ const favoriteSearchSchema = new Schema({
   },
   imageUrl: {
     type: String,
-    required: true,
   },
   professionalHeadline: {
     type: String,

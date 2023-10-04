@@ -5,12 +5,18 @@ import ResultsList from "../../components/ResultsList/ResultsList";
 
 import { getSearchResults } from "./SearchSlice";
 import { useDispatch } from "react-redux";
+import { debounce } from "lodash";
 
 const Search = () => {
   const dispatch = useDispatch();
 
+  // To wait until the user finishes typings
+  const debouncedSearch = debounce((searchTerm) => {
+    dispatch(getSearchResults(searchTerm));
+  }, 300);
+
   const handleTermChange = (e) => {
-    dispatch(getSearchResults(e.target.value));
+    debouncedSearch(e.target.value);
   };
 
   return (

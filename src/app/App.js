@@ -1,12 +1,17 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Auth from "../features/Auth/Auth.js";
 import Search from "../features/Search/Search";
 import FavoritesList from "../features/Favorites/Favorites";
 import { extractTokenFromCookie } from "../utils/extractToken";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { extractPayloadFromJWT } from "../utils/jwtPayloadParser";
-import { authUser } from "../features/Auth/UserSlice";
+import { authUser, selectIsAuthenticated } from "../features/Auth/UserSlice";
 import axios from "axios";
 
 function App() {
@@ -19,6 +24,7 @@ function App() {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     dispatch(authUser(payload));
   }
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   return (
     <>
@@ -26,7 +32,13 @@ function App() {
         <div className="app">
           <Routes>
             <Route path="/" exact element={<Search />} />
-            <Route path="/favorites" exact element={<FavoritesList />} />
+            <Route
+              path="/favorites"
+              exact
+              element={
+                isAuthenticated ? <FavoritesList /> : <Navigate to="/auth" />
+              }
+            />
 
             <Route path="/auth" exact element={<Auth />} />
             <Route

@@ -5,7 +5,6 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 import "./SearchResult.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { extractTokenFromCookie } from "../../utils/extractToken";
 
 const SearchResult = ({ result }) => {
