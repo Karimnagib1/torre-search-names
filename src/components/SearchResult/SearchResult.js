@@ -6,8 +6,11 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./SearchResult.css";
 import { useNavigate } from "react-router-dom";
 import { extractTokenFromCookie } from "../../utils/extractToken";
+import { useDispatch } from "react-redux";
+import { setAlert } from "../../features/AlertMessage/AlertSlice";
 
 const SearchResult = ({ result }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleResultClick = () => {
     window.open(`https://torre.ai/${result.username}`, "_blank");
@@ -28,12 +31,23 @@ const SearchResult = ({ result }) => {
           body: JSON.stringify(result),
         }
       );
-
       const response = await jsonResponse.json();
-      if (response.status === 201) {
-        console.log("Favorite added successfully");
+      if (jsonResponse.status === 201) {
+        dispatch(
+          setAlert({
+            message: "Added to favorites",
+            severity: "success",
+            isVisible: true,
+          })
+        );
       } else {
-        console.log(response.message);
+        dispatch(
+          setAlert({
+            message: response.message,
+            severity: "error",
+            isVisible: true,
+          })
+        );
       }
     } else {
       navigate("/auth");

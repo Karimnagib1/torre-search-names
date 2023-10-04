@@ -33,20 +33,16 @@ const Login = () => {
       }
     );
     const response = await jsonResponse.json();
-
-    if (response.status === 200) {
+    if (response.success) {
       // Calculate the expiration date
       const expirationDate = new Date();
       expirationDate.setMonth(expirationDate.getMonth() + 1);
-
       document.cookie = `Authorization=${
-        response.data.token.split(" ")[1]
+        response.token.split(" ")[1]
       }; expires=${expirationDate.toUTCString()}; path=/`;
 
-      const payload = JSON.parse(
-        window.atob(response.data.token.split(".")[1])
-      );
-
+      const payload = JSON.parse(window.atob(response.token.split(".")[1]));
+      navigate("/");
       dispatch(
         setAlert({
           message: "Login successful",
@@ -55,12 +51,11 @@ const Login = () => {
         })
       );
       dispatch(authUser(payload));
-
-      navigate("/");
+    
     } else {
       dispatch(
         setAlert({
-          message: Object.values[response][0],
+          message: Object.values(response)[0],
           severity: "error",
           isVisible: true,
         })

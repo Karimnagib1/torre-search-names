@@ -1,13 +1,14 @@
 import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import "./Signup.css";
+import { useDispatch } from "react-redux";
+import { setAlert } from "../../features/AlertMessage/AlertSlice";
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +20,6 @@ const Signup = () => {
       password2: password2,
     };
 
-
     const jsonResponse = await fetch(
       "https://torre-search-names.onrender.com/user/signup",
       {
@@ -30,9 +30,23 @@ const Signup = () => {
         body: JSON.stringify(data),
       }
     );
-    const response = await jsonResponse.json();
-    if (response.status === 200) {
-      navigate("/login");
+    if (jsonResponse.status === 200) {
+      dispatch(
+        setAlert({
+          message: "Signup successful",
+          severity: "success",
+          isVisible: true,
+        })
+      );
+    } else {
+      const response = await jsonResponse.json();
+      dispatch(
+        setAlert({
+          message: Object.values(response)[0],
+          severity: "error",
+          isVisible: true,
+        })
+      );
     }
   };
   return (
