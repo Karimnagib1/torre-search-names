@@ -1,6 +1,5 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import "./Signup.css";
 const Signup = () => {
@@ -19,10 +18,19 @@ const Signup = () => {
       password: password,
       password2: password2,
     };
-    const response = await axios.post(
+
+
+    const jsonResponse = await fetch(
       "https://torre-search-names.onrender.com/user/signup",
-      data
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
     );
+    const response = await jsonResponse.json();
     if (response.status === 200) {
       navigate("/login");
     }

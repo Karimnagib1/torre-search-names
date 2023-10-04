@@ -10,7 +10,6 @@ import {
   selectIsAuthenticated,
   logout,
 } from "../../features/Auth/UserSlice.js";
-import axios from "axios";
 import "./NavBar.css";
 
 const NavBar = ({ path }) => {
@@ -40,8 +39,6 @@ const NavBar = ({ path }) => {
     document.cookie =
       "Authorization=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-    // Remove Authorization header
-    delete axios.defaults.headers.common["Authorization"];
     navigate("/");
     dispatch(logout());
   };

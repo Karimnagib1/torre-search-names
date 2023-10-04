@@ -1,9 +1,10 @@
 import { React, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { authUser } from "../../features/Auth/UserSlice.js";
 import "./Login.css";
+import { setAlert } from "../../features/AlertMessage/AlertSlice.js";
+import { extractTokenFromCookie } from "../../utils/extractToken.js";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -18,7 +19,20 @@ const Login = () => {
       email: email,
       password: password,
     };
-    const response = await axios.post("https://torre-search-names.onrender.com/user/login", data);
+
+    const token = extractTokenFromCookie();
+    const jsonResponse = await fetch(
+      "https://torre-search-names.onrender.com/user/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const response = await jsonResponse.json();
 
     if (response.status === 200) {
       // Calculate the expiration date
@@ -29,17 +43,28 @@ const Login = () => {
         response.data.token.split(" ")[1]
       }; expires=${expirationDate.toUTCString()}; path=/`;
 
-      axios.defaults.headers.common["Authorization"] = `Bearer ${
-        response.data.token.split(" ")[1]
-      }`;
-
       const payload = JSON.parse(
         window.atob(response.data.token.split(".")[1])
       );
 
+      dispatch(
+        setAlert({
+          message: "Login successful",
+          severity: "success",
+          isVisible: true,
+        })
+      );
       dispatch(authUser(payload));
 
       navigate("/");
+    } else {
+      dispatch(
+        setAlert({
+          message: Object.values[response][0],
+          severity: "error",
+          isVisible: true,
+        })
+      );
     }
   };
   return (

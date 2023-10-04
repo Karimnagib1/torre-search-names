@@ -1,23 +1,30 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 export const getSearchResults = createAsyncThunk(
   "search/getSearchResults",
   async (searchTerm) => {
-    const searchResponse = await axios.post(
-      "https://torre.ai/api/entities/_search",
+    const jsonResponse = await fetch(
+      "https://torre.ai/api/entities/_search/",
       {
-        query: searchTerm,
-        torreGgId: "",
-        identityType: "person",
-        limit: 10,
-        meta: true,
-        excluding: [],
-        excludedPeople: [],
-        excludeContacts: false,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: searchTerm,
+          torreGgId: "",
+          identityType: "person",
+          limit: 10,
+          meta: true,
+          excluding: [],
+          excludedPeople: [],
+          excludeContacts: false,
+        }),
       }
     );
-    return searchResponse.data.results;
+    const response = await jsonResponse.json();
+    console.log(response);
+    return response.results;
   }
 );
 

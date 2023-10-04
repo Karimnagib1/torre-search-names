@@ -17,15 +17,17 @@ const SearchResult = ({ result }) => {
     const token = extractTokenFromCookie();
 
     if (token) {
-      // change the axios to use fetch instead
-      const jsonResponse = await fetch("https://torre-search-names.onrender.com/favorites/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(result),
-      });
+      const jsonResponse = await fetch(
+        "https://torre-search-names.onrender.com/favorites/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(result),
+        }
+      );
 
       const response = await jsonResponse.json();
       if (response.status === 201) {
