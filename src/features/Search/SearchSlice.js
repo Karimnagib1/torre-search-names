@@ -23,7 +23,6 @@ export const getSearchResults = createAsyncThunk(
       }
     );
     const response = await jsonResponse.json();
-    console.log(response);
     return response.results;
   }
 );
