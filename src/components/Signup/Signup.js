@@ -20,7 +20,7 @@ const Signup = () => {
       password2: password2,
     };
     const response = await axios.post(
-      "http://localhost:5000/user/signup",
+      "https://torre-search-names.onrender.com/user/signup",
       data
     );
     if (response.status === 200) {

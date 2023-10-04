@@ -18,7 +18,7 @@ const SearchResult = ({ result }) => {
 
     if (token) {
       // change the axios to use fetch instead
-      const jsonResponse = await fetch("http://localhost:5000/favorites/", {
+      const jsonResponse = await fetch("https://torre-search-names.onrender.com/favorites/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -9,7 +9,7 @@ export const getFavorites = createAsyncThunk(
   async () => {
     const token = extractTokenFromCookie();
     if (token) {
-      const jsonResponse = await fetch("http://localhost:5000/favorites/", {
+      const jsonResponse = await fetch("https://torre-search-names.onrender.com/favorites/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

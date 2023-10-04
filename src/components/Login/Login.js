@@ -18,7 +18,7 @@ const Login = () => {
       email: email,
       password: password,
     };
-    const response = await axios.post("http://localhost:5000/user/login", data);
+    const response = await axios.post("https://torre-search-names.onrender.com/user/login", data);
 
     if (response.status === 200) {
       // Calculate the expiration date
