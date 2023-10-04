@@ -12,7 +12,7 @@ import { extractTokenFromCookie } from "../utils/extractToken";
 import { useDispatch, useSelector } from "react-redux";
 import { extractPayloadFromJWT } from "../utils/jwtPayloadParser";
 import { authUser, selectIsAuthenticated } from "../features/Auth/UserSlice";
-import axios from "axios";
+import AlertMessage from "../features/AlertMessage/AlertMessage";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ function App() {
   const token = extractTokenFromCookie();
   if (token) {
     const payload = extractPayloadFromJWT(token);
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     dispatch(authUser(payload));
   }
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -56,6 +55,7 @@ function App() {
               }
             />
           </Routes>
+          <AlertMessage />
         </div>
       </Router>
     </>

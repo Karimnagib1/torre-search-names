@@ -1,0 +1,14 @@
+.alert-message {
+    position: absolute;
+    bottom: 20px;
+    width: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+
+}
+
+@media (max-width: 768px) {
+    .alert-message {
+        width: 90%;
+    }
+}
